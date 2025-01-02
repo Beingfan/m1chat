@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>服务选择</title>
+    <title>最新项目推荐</title>
     <style>
         body, html {
             margin: 0;
@@ -26,44 +26,6 @@
     <img src="images/img_04.jpg">
     <img src="images/img_05.jpg">
 
-    <script>
-        const encryptedUrls = [
-            '', 
-            '', 
-            '', 
-            '', 
-            '',
-            '', 
-            ''  
-        ];
-
-        const passwords = '2233'; 
-
-        function decryptAES(encrypted) {
-            const decrypted = CryptoJS.AES.decrypt(encrypted, passwords);
-            return decrypted.toString(CryptoJS.enc.Utf8);
-        }
-
-        
-        function downloadFile(url) {
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = ''; 
-            document.body.appendChild(link); 
-            link.click(); 
-            document.body.removeChild(link); 
-        }
-
-        const images = document.querySelectorAll('img');
-        images.forEach((img, index) => {
-            img.addEventListener('click', () => {
-                const encryptedUrl = encryptedUrls[index]; 
-                const decryptedUrl = decryptAES(encryptedUrl);
-                
-                downloadFile(decryptedUrl); 
-            });
-        });
-    </script>
-
+   
 </body>
 </html>
